@@ -79,6 +79,13 @@ class RacerScreen extends Component {
 
     console.log(this.state.racers)
   }
+  getRaceTime = () => {
+    this.collectTime();
+
+    let currentRacer = this.state.racers[i];
+    let updateRacerTime = firebase.firestore().collection('racers').doc(currentRacer);
+    updateRacerTime.add({time: this.resolvedTime})
+  }
 
   render() {
     if(this.state.isLoading){
@@ -109,10 +116,10 @@ class RacerScreen extends Component {
           {
             this.state.racers.map((item, i) => (
               <ListItem
-                key={item.key}
+                key={i}
                 title={item.key}
                 leftIcon={{name: 'face', type: 'material'}}
-                onPress={() => this.associateTimewithRunner}
+                onPress={() => console.log(this.state.racers[i])}
               />
 
             ))
