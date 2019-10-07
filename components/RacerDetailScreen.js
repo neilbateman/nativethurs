@@ -3,25 +3,25 @@ import { StyleSheet, ScrollView, ActivityIndicator, View } from 'react-native';
 import { List, ListItem, Text, Card, Button } from 'react-native-elements';
 import firebase from '../Firebase';
 
-class BoardDetailScreen extends Component {
+class RacerDetailScreen extends Component {
   static navigationOptions = {
-    title: 'Board Details',
+    title: 'Racer Details',
   };
   constructor() {
     super();
     this.state = {
       isLoading: true,
-      board: {},
+      racer: {},
       key: ''
     };
   }
   componentDidMount() {
     const { navigation } = this.props;
-    const ref = firebase.firestore().collection('boards').doc(JSON.parse(navigation.getParam('boardkey')));
+    const ref = firebase.firestore().collection('racers').doc(JSON.parse(navigation.getParam('racerkey')));
     ref.get().then((doc) => {
       if (doc.exists) {
         this.setState({
-          board: doc.data(),
+          racer: doc.data(),
           key: doc.id,
           isLoading: false
         });
@@ -30,17 +30,17 @@ class BoardDetailScreen extends Component {
       }
     });
   }
-  deleteBoard(key) {
+  deleteRacer(key) {
     const { navigation } = this.props;
     this.setState({
       isLoading: true
     });
-    firebase.firestore().collection('boards').doc(key).delete().then(() => {
+    firebase.firestore().collection('racers').doc(key).delete().then(() => {
       console.log("Document successfully deleted!");
       this.setState({
         isLoading: false
       });
-      navigation.navigate('Board');
+      navigation.navigate('Racer');
     }).catch((error) => {
       console.error("Error removing document: ", error);
       this.setState({
@@ -61,13 +61,13 @@ class BoardDetailScreen extends Component {
         <Card style={styles.container}>
           <View style={styles.subContainer}>
             <View>
-              <Text h3>{this.state.board.title}</Text>
+              <Text h3>{this.state.racer.title}</Text>
             </View>
             <View>
-              <Text h5>{this.state.board.description}</Text>
+              <Text h5>{this.state.racer.description}</Text>
             </View>
             <View>
-              <Text h4>{this.state.board.author}</Text>
+              <Text h4>{this.state.racer.author}</Text>
             </View>
           </View>
           <View style={styles.detailButton}>
@@ -77,8 +77,8 @@ class BoardDetailScreen extends Component {
               leftIcon={{name: 'edit'}}
               title='Edit'
               onPress={() => {
-                this.props.navigation.navigate('EditBoard', {
-                  boardkey: `${JSON.stringify(this.state.key)}`,
+                this.props.navigation.navigate('EditRacer', {
+                  racerkey: `${JSON.stringify(this.state.key)}`,
                 });
               }} />
           </View>
@@ -89,7 +89,7 @@ class BoardDetailScreen extends Component {
               color={'#FFFFFF'}
               leftIcon={{name: 'delete'}}
               title='Delete'
-              onPress={() => this.deleteBoard(this.state.key)} />
+              onPress={() => this.deleteRacer(this.state.key)} />
           </View>
         </Card>
       </ScrollView>
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default BoardDetailScreen;
+export default RacerDetailScreen;

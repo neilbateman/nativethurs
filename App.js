@@ -2,20 +2,26 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import BoardScreen from './components/BoardScreen';
-import BoardDetailScreen from './components/BoardDetailScreen';
-import AddBoardScreen from './components/AddBoardScreen';
-import EditBoardScreen from './components/EditBoardScreen';
+import RacerScreen from './components/RacerScreen';
+import RacerDetailScreen from './components/RacerDetailScreen';
+import AddRacerScreen from './components/AddRacerScreen';
+import EditRacerScreen from './components/EditRacerScreen';
+import HomeScreen from './components/HomeScreen';
+import RaceScreen from './components/RaceScreen';
+import RaceResult from './components/RaceResult'
 
 const Stack = createStackNavigator(
   {
-    Board: BoardScreen,
-    BoardDetails: BoardDetailScreen,
-    AddBoard: AddBoardScreen,
-    EditBoard: EditBoardScreen,
+    Home: HomeScreen,
+    Racer: RacerScreen,
+    RacerDetails: RacerDetailScreen,
+    AddRacer: AddRacerScreen,
+    EditRacer: EditRacerScreen,
+    RaceScreen: RaceScreen,
+    RaceResult: RaceResult
   },
   {
-    initialRouteName: 'Board',
+    initialRouteName: 'Home',
     navigationOptions: {
       headerStyle: {
         backgroundColor: '#777777',
@@ -30,6 +36,7 @@ const Stack = createStackNavigator(
 );
 
 const RootStack = createAppContainer(Stack);
+
 
 export default class App extends React.Component {
   render() {

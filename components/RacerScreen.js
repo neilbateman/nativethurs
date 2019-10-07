@@ -3,36 +3,37 @@ import { StyleSheet, ScrollView, ActivityIndicator, View, Text } from 'react-nat
 import { List, ListItem, Button, Icon, Card } from 'react-native-elements';
 import firebase from '../Firebase';
 
-class BoardScreen extends Component {
+class RacerScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Board List',
+      title: 'Racer List',
       headerRight: (
         <Button
           buttonStyle={{ padding: 0, backgroundColor: 'transparent' }}
           icon={{ name: 'add-circle', style: { marginRight: 0, fontSize: 28 } }}
-          onPress={() => { navigation.push('AddBoard') }}
+          onPress={() => { navigation.push('AddRacer') }}
         />
       ),
     };
   };
   constructor() {
     super();
-    this.ref = firebase.firestore().collection('boards');
+    this.ref = firebase.firestore().collection('racers');
     this.unsubscribe = null;
     this.state = {
       isLoading: true,
-      boards: []
+      racers: []
     };
   }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    // console.log(ref.key)
   }
   onCollectionUpdate = (querySnapshot) => {
-    const boards = [];
+    const racers = [];
     querySnapshot.forEach((doc) => {
       const { title, description, author } = doc.data();
-      boards.push({
+      racers.push({
         key: doc.id,
         doc, // DocumentSnapshot
         title,
@@ -41,7 +42,7 @@ class BoardScreen extends Component {
       });
     });
     this.setState({
-      boards,
+      racers,
       isLoading: false,
    });
   }
@@ -55,19 +56,21 @@ class BoardScreen extends Component {
     }
     return (
       <ScrollView style={styles.container}>
-        
+
           {
-            this.state.boards.map((item, i) => (
+            this.state.racers.map((item, i) => (
               <ListItem
                 key={i}
                 title={item.title}
-                leftIcon={{name: 'book', type: 'font-awesome'}}
+                description={item.description}
+                leftIcon={{name: 'face', type: 'material'}}
                 onPress={() => {
-                  this.props.navigation.navigate('BoardDetails', {
-                    boardkey: `${JSON.stringify(item.key)}`,
+                  this.props.navigation.navigate('RacerDetails', {
+                    racerkey: `${JSON.stringify(item.key)}`,
                   });
                 }}
               />
+
             ))
           }
 
@@ -97,4 +100,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default BoardScreen;
+export default RacerScreen;

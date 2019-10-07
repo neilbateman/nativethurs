@@ -3,9 +3,9 @@ import { StyleSheet, ScrollView, ActivityIndicator, View, TextInput } from 'reac
 import { Button } from 'react-native-elements';
 import firebase from '../Firebase';
 
-class EditBoardScreen extends Component {
+class EditRacerScreen extends Component {
   static navigationOptions = {
-    title: 'Edit Board',
+    title: 'Edit Racer',
   };
   constructor() {
     super();
@@ -19,15 +19,15 @@ class EditBoardScreen extends Component {
   }
   componentDidMount() {
     const { navigation } = this.props;
-    const ref = firebase.firestore().collection('boards').doc(JSON.parse(navigation.getParam('boardkey')));
+    const ref = firebase.firestore().collection('racers').doc(JSON.parse(navigation.getParam('racerkey')));
     ref.get().then((doc) => {
       if (doc.exists) {
-        const board = doc.data();
+        const racer = doc.data();
         this.setState({
           key: doc.id,
-          title: board.title,
-          description: board.description,
-          author: board.author,
+          title: racer.title,
+          description: racer.description,
+          author: racer.author,
           isLoading: false
         });
       } else {
@@ -42,12 +42,12 @@ class EditBoardScreen extends Component {
     this.setState(state);
   }
 
-  updateBoard() {
+  updateRacer() {
     this.setState({
       isLoading: true,
     });
     const { navigation } = this.props;
-    const updateRef = firebase.firestore().collection('boards').doc(this.state.key);
+    const updateRef = firebase.firestore().collection('racers').doc(this.state.key);
     updateRef.set({
       title: this.state.title,
       description: this.state.description,
@@ -60,7 +60,7 @@ class EditBoardScreen extends Component {
         author: '',
         isLoading: false,
       });
-      this.props.navigation.navigate('Board');
+      this.props.navigation.navigate('Racer');
     })
     .catch((error) => {
       console.error("Error adding document: ", error);
@@ -108,7 +108,7 @@ class EditBoardScreen extends Component {
             large
             leftIcon={{name: 'update'}}
             title='Update'
-            onPress={() => this.updateBoard()} />
+            onPress={() => this.updateRacer()} />
         </View>
       </ScrollView>
     );
@@ -138,4 +138,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default EditBoardScreen;
+export default EditRacerScreen;

@@ -3,13 +3,13 @@ import { StyleSheet, ScrollView, ActivityIndicator, View, TextInput } from 'reac
 import { Button } from 'react-native-elements';
 import firebase from '../Firebase';
 
-class AddBoardScreen extends Component {
+class AddRacerScreen extends Component {
   static navigationOptions = {
-    title: 'Add Board',
+    title: 'Add Racer',
   };
   constructor() {
     super();
-    this.ref = firebase.firestore().collection('boards');
+    this.ref = firebase.firestore().collection('racers');
     this.state = {
       title: '',
       description: '',
@@ -23,7 +23,7 @@ class AddBoardScreen extends Component {
     this.setState(state);
   }
 
-  saveBoard() {
+  saveRacer() {
     this.setState({
       isLoading: true,
     });
@@ -86,7 +86,7 @@ class AddBoardScreen extends Component {
             large
             leftIcon={{name: 'save'}}
             title='Save'
-            onPress={() => this.saveBoard()} />
+            onPress={() => this.saveRacer()} />
         </View>
       </ScrollView>
     );
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddBoardScreen;
+export default AddRacerScreen;
