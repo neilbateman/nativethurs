@@ -28,6 +28,7 @@ class EditRacerScreen extends Component {
           title: racer.title,
           description: racer.description,
           author: racer.author,
+          time: racer.time,
           isLoading: false
         });
       } else {

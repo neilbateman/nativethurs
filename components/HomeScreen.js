@@ -189,7 +189,7 @@ export default class HomeScreen extends React.Component {
                         }}>Race</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('RaceResult')} style={{
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CurrentRaceScreen')} style={{
                         width: this.getItemWidth(),
                         alignItems: 'center',
                         backgroundColor: '#fff',

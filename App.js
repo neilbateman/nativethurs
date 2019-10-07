@@ -9,7 +9,10 @@ import EditRacerScreen from './components/EditRacerScreen';
 import HomeScreen from './components/HomeScreen';
 import RaceScreen from './components/RaceScreen';
 import RaceResult from './components/RaceResult'
-
+import CurrentRaceScreen from './components/CurrentRaceScreen';
+import 'firebase/auth';
+import { FirebaseAuthProvider, IfFirebaseAuthed } from '@react-firebase/auth'
+import firebase from './Firebase';
 const Stack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -18,7 +21,8 @@ const Stack = createStackNavigator(
     AddRacer: AddRacerScreen,
     EditRacer: EditRacerScreen,
     RaceScreen: RaceScreen,
-    RaceResult: RaceResult
+    RaceResult: RaceResult,
+    CurrentRaceScreen: CurrentRaceScreen
   },
   {
     initialRouteName: 'Home',
@@ -40,7 +44,12 @@ const RootStack = createAppContainer(Stack);
 
 export default class App extends React.Component {
   render() {
-    return <RootStack />;
+    return(
+
+        <RootStack />
+
+    )
+
   }
 }
 
